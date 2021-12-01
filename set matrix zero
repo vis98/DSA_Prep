@@ -1,0 +1,39 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+       Set<Integer> row=new HashSet<>();
+        Set<Integer> col=new HashSet<>();
+        
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[i].length;j++){
+                if(matrix[i][j]==0){
+                    row.add(i);
+                    col.add(j);
+                }
+            }
+        }
+        int r=0;
+        int c=0;
+        Iterator iterator = row.iterator();
+	    Iterator citerator = col.iterator();
+	
+	   while(iterator.hasNext()){
+		    r = (int) iterator.next();
+           c=0;
+           while(c<matrix[r].length){
+               matrix[r][c]=0;
+               c++;
+           }
+	    }
+           
+        while(citerator.hasNext()){
+		    c = (int) citerator.next();
+           r=0;
+           while(r<matrix.length){
+               matrix[r][c]=0;
+               r++;
+           }
+	    }
+        
+    
+    }
+}
