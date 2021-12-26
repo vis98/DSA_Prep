@@ -1,0 +1,14 @@
+class Solution {
+    public String reverseWords(String s) {
+       String b="";
+        Stack<String> st=new Stack<>();
+        String arr[]=s.trim().split(" ");
+        for(int i=arr.length-1;i>=0;i--){
+            if(!arr[i].equals("")){
+             b=b+arr[i]+" ";
+            }
+        }
+        return b.trim();
+        
+    }
+}
