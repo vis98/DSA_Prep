@@ -1,0 +1,17 @@
+class Solution {
+    public boolean rotateString(String s, String goal) {
+       String rr=s;
+        int k=rr.length()-1;
+        for(int i=1;i<=s.length()-1;i++){
+             rr=rightrotate(rr,k);
+            if(rr.equals(goal)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public String rightrotate(String s1,int d){
+        String ans=s1.substring(d)+s1.substring(0,d);
+        return ans;
+    }
+}
