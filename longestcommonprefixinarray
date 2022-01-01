@@ -1,0 +1,11 @@
+s1 geeksforgeeks
+s2 geeks
+s3 geek
+s4 geezer
+
+get min length of s1,s2,s3,s4 so w.r.t this example minlegnth=4 which is of s3
+
+and do a looop till minlength 
+and check each character from each word and if its same then add it to result as common prefix
+else 
+return the answer
