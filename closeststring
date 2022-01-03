@@ -1,0 +1,23 @@
+class Solution {
+    int shortestDistance(ArrayList<String> s, String word1, String word2) {
+        
+	    int di=32267;
+		// Your code goes here
+		int first=-1,second=-1;
+		int ans=2147483647;
+		for(int i=0;i<s.size();i++){
+		    if(s.get(i).equals(word1)){
+		        first=i;
+		    }
+		    if(s.get(i).equals(word2)){
+		        second=i;
+		    }
+		    if(first>=0 && second>=0){
+		        di=Math.abs(first-second);
+		    ans=Math.min(ans,di);
+		    }
+		
+		  }
+		  return ans;
+    }
+}
