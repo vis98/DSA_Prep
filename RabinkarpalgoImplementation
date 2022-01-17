@@ -1,0 +1,49 @@
+import java.lang.*;
+import java.util.*;
+
+
+
+class Karp{
+ private static final int d = 26; // Base value of alphabets
+  private static final int p = 5381; // Large prime number
+
+  public static void search(String pat, String txt)
+  {
+    int patHash = 0; // Hash value of pattern
+    int txtHash = 0; // Hash value of text
+     int po=pat.length()-1;
+    for (int i = 0; i < pat.length(); i++) // Generating Hash values for pattern and first window text
+    {
+      
+      patHash = patHash + (((int)(Math.pow(d,po))*(pat.charAt(i) - 'A' + 1) ));
+      txtHash = txtHash + (((int)(Math.pow(d,po))*(txt.charAt(i) - 'A' + 1) ));
+           po--;
+   }
+     // System.out.println("patHash is "+patHash+" "+"textHash is "+txtHash);
+    
+    for (int i = 0; i <= txt.length() - pat.length(); i++) // Loop of text size minus  window
+    {
+      if (patHash == txtHash)
+      {
+        System.out.println("Pattern found at index " + i);
+      }
+
+      if (i < txt.length() - pat.length())
+      {
+        txtHash = txtHash - ((txt.charAt(i) - 'A' + 1) * (int)Math.pow(d, pat.length() - 1));  // Subtracting first element from current hash of d^window-1
+        txtHash = txtHash * d + (txt.charAt(i + pat.length()) - 'A' + 1);  // multiplying obtained hash with d to left shift the number and then adding the next new element
+               
+}
+      System.out.println("value of i is "+i+"& text hash is "+txtHash);
+    }
+  }
+
+public static void main(String[] args)
+    {
+        String txt = "GEEJ FOR EGEEK";
+        String pat = "GEEK";
+           
+         search(pat,txt);
+    }
+
+}
