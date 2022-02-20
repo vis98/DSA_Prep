@@ -1,0 +1,18 @@
+class Solution {
+    int shortestDistance(ArrayList<String> s, String word1, String word2) {
+        int st=-1,ed=-1;int mn=10000000;
+        for(int i=0;i<s.size();i++){
+            if(s.get(i).equals(word1)){
+                st=i;
+            }
+            if(s.get(i).equals(word2)){
+                ed=i;
+            }
+            if((st!=-1)&&(ed!=-1))
+           {
+              mn = Math.min(mn, Math.abs(st- ed));
+           }    
+        }
+        return mn;
+    }
+};
