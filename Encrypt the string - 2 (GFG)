@@ -1,0 +1,48 @@
+class Solution {
+    static String convertToHex(int num)
+    {
+ 
+        StringBuilder temp = new StringBuilder();
+        while (num != 0) {
+            int rem = num % 16;
+            char c;
+            if (rem < 10) {
+                c = (char) (rem + 48);
+            }
+            else {
+                c = (char) (rem + 87);
+            }
+            temp.append(c);
+            num = num / 16;
+        }
+ 
+        return temp.toString();
+    }
+    static String encryptString(String S){
+        
+      
+        StringBuilder sb = new StringBuilder();
+        int co=0;
+        int f=0;
+        String temp="";
+        for(int i=0;i<S.length();i++){
+            co=0;
+             f=0;
+             char ch = S.charAt(i);
+             temp="";
+            while(i<S.length()&&S.charAt(i)==ch){
+                co++;
+                i++;
+                
+            }
+            i--;
+             temp=convertToHex(co);
+             sb.append(ch);
+             sb.append(temp);
+        }
+        
+        return sb.reverse().toString();
+       
+    }
+    
+};
