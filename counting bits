@@ -1,0 +1,20 @@
+class Solution {
+    public int[] countBits(int n) {
+        int res[]=new int[n+1];
+        int t=0;
+        int co=0;
+        for(int i=0;i<=n;i++){
+            co=0;
+             t=i;
+            while(t>0){
+                if((t&1)>0){
+                    co++;
+                }
+                t=t>>1;
+            }
+            res[i]=co;
+            
+        }
+        return res;
+    }
+}
