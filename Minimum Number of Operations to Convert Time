@@ -1,0 +1,36 @@
+import java.lang.*;
+import java.util.*;
+class Solution {
+    public int convertTime(String current, String correct) {
+        int arr[]=new int[]{1, 5, 15,60};
+        String curr[]=current.split(":");
+        String corr[]=correct.split(":");
+
+        int currhour=Integer.parseInt(curr[0]);
+        int currmin=Integer.parseInt(curr[1]);
+        int corrhour=Integer.parseInt(corr[0]);
+        int corrmin=Integer.parseInt(corr[1]);
+        
+        int hrdiff=corrhour-currhour;
+        int mindiff=corrmin-currmin;
+        if(mindiff<0){
+            mindiff=mindiff+60;
+        }
+        if(corrmin<currmin){
+            hrdiff=hrdiff-1;
+        }
+        
+        int total=hrdiff;
+             for(int i=3;i>=0;i--){
+                while(arr[i]<=mindiff &&mindiff>=0){
+                  // if(mindiff-arr[i]>0){
+                    mindiff=mindiff-arr[i];
+                    
+                  //  System.out.println("mindiff"+mindiff);
+                    total=total+1;
+                }
+            }
+        return total;
+        
+    }
+}
