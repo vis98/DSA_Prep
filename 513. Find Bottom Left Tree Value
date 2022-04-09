@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int findBottomLeftValue(TreeNode root) {
+        List<Integer> li=new ArrayList<Integer>();
+        HashMap<Integer,Integer> h=new HashMap<Integer,Integer>();
+        h=helper(root,li,0,h);
+        int max=-1;
+        int maxval=0;
+        for (Map.Entry<Integer,Integer> entry : h.entrySet()){
+            if(entry.getKey()>max){
+                max=entry.getKey();
+                maxval=entry.getValue();
+            }
+        }
+        return maxval;
+            
+    }
+    public HashMap<Integer,Integer> helper(TreeNode root,List<Integer> res,int level,HashMap<Integer,Integer> h1){
+        if(root==null){
+            return h1;
+        }
+        if(root.left==null && root.right==null){
+            res.add(root.val);
+            h1.put(level,root.val);
+        }
+        helper(root.right,res,level+1,h1);
+        helper(root.left,res,level+1,h1);
+        return h1;
+
+    }
+}
