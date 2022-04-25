@@ -1,0 +1,33 @@
+class Solution {
+    public int minimumOperations(int[] nums, int start, int goal) {
+        int n=nums.length;
+        int vis[]=new int[1001];
+        int ans=0;
+          Queue<Integer> q
+            = new LinkedList<>();
+        q.add(start);
+        while(!q.isEmpty()){
+            int s=q.size();
+            while(s-->0){
+                int curr=q.remove();
+                if(curr==goal){
+                    return ans;
+                }
+                if(curr<0 || curr>1000 || (vis[curr]==1))
+ {continue;}
+                vis[curr]=1;
+                for(int i=0;i<n;i++){
+                    int a=curr+nums[i];
+                    int b=curr-nums[i];
+                    int c=curr^nums[i];
+                    q.add(a);
+                    q.add(b);
+                    q.add(c);
+                }
+            }
+            ans++;
+        }
+        return -1;
+ 
+    }
+}
