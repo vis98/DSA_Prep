@@ -1,0 +1,54 @@
+class Solution {
+            List<Integer> li[];
+
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+       li = new LinkedList[n];
+        int indegree[]=new int[n];
+        List <Integer>re =new LinkedList<Integer>();
+        for(int i=0;i<=n-1;i++){
+            li[i]=new LinkedList<Integer>();
+        }
+        for(int i=0;i<edges.length;i++){
+            addEdge(indegree,edges[i][0],edges[i][1]);
+        }
+         Queue<Integer> q
+            = new LinkedList<>();
+        for(int i=0;i<indegree.length;i++){
+            if(indegree[i]==1){
+                q.add(i);
+            }
+        }
+                LinkedList<Integer> res = new LinkedList<Integer>();
+        if(n==1){
+            res.add(0);
+            return res;
+        }
+        while(!q.isEmpty()){
+            res.clear();
+            n=q.size();
+            while(n-->0){
+            int nod=q.poll();
+             res.add(nod);
+
+            for(int child: li[nod]){
+                indegree[child]--;
+                if(indegree[child]==1){
+                    q.add(child);
+                }
+                }
+            }
+            
+        }
+   
+        return res;
+        
+    }
+    public void addEdge(int[] indegree,int u,int v){
+        li[u].add(v);
+        li[v].add(u);
+        indegree[u]++;
+        indegree[v]++;
+        
+    }
+    
+}
