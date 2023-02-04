@@ -1,0 +1,38 @@
+class Solution {
+                private LinkedList<Integer> adj[];
+                    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+                List<Integer> cur=new ArrayList<>();
+                cur.add(0);
+            int v=graph.length;
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; ++i)
+            adj[i] = new LinkedList<>();
+        for(int i=0;i<graph.length;i++){
+            for(int j=0;j<graph[i].length;j++){
+               
+                    adj[i].add(graph[i][j]);
+            
+            }
+        }
+         countPathUtil(0,graph.length-1,cur);
+        return res;
+    }
+
+    void countPathUtil(int u,int d,List<Integer> cur){
+        if(u==d){
+            res.add(new ArrayList(cur));
+            return;
+        }
+        else{
+            Iterator<Integer> i = adj[u].listIterator();
+            while (i.hasNext()) {
+                int n = i.next();
+                cur.add(n);
+                countPathUtil(n, d,cur);
+                cur.remove(cur.size()-1);
+            }
+        }
+    }
+}
