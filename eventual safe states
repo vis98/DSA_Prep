@@ -1,0 +1,72 @@
+class Solution {
+    private LinkedList<Integer> adj[];
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+       List<Integer> res=new ArrayList<Integer>();
+       // recursion stack
+       int V=graph.length;
+        adj = new LinkedList[V];
+        for (int i = 0; i < V; ++i)
+            adj[i] = new LinkedList();
+
+        for(int i=0;i<V;i++){
+            for(int j=0;j<graph[i].length;j++){
+                adj[i].add(graph[i][j]);
+            }
+        }
+        Boolean visited[] = new Boolean[V];
+                Boolean path[] = new Boolean[V];
+
+        for (int i = 0; i < V; i++)
+            visited[i] = false;
+ 
+        // Call the recursive helper
+        // function to detect cycle in
+        // different DFS trees
+        for (int u = 0; u < V; u++) {
+ 
+            // Don't recur for u if already visited
+            if (!visited[u])
+                 isCyclicUtil(u, visited, -1,path);
+        }
+
+        for (int i = 0; i < V; i++) {
+            if (visited[i] && !path[i])
+                res.add(i);
+        }
+        return res;
+       
+    }
+     Boolean isCyclicUtil(int v, Boolean visited[],
+                         int parent, Boolean path[])
+    {
+        // Mark the current node as visited
+        visited[v] = true;
+                path[v] = true;
+
+        Integer i;
+ 
+        // Recur for all the vertices
+        // adjacent to this vertex
+        Iterator<Integer> it = adj[v].iterator();
+        while (it.hasNext()) {
+            i = it.next();
+ 
+            // If an adjacent is not
+            // visited, then recur for that
+            // adjacent
+            if (!visited[i]) {
+                if (isCyclicUtil(i, visited, v,path))
+                    return true;
+            }
+ 
+            // If an adjacent is visited
+            // and not parent of current
+            // vertex, then there is a cycle.
+            else if (path[i])
+                return true;
+        }
+        path[v]=false;
+        return false;
+    }
+
+}
