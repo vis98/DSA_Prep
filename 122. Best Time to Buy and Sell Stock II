@@ -1,0 +1,20 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int pr=0;
+        int buy=-1;
+        if(prices.length==0){
+            return 0;
+        }
+        for(int i=1;i<prices.length;i++){
+             if(prices[i-1]<prices[i])
+             {
+                 buy=prices[i-1];
+             }
+            if(buy!=-1&&prices[i]>buy){
+               pr=pr+prices[i]-buy;
+                buy=-1;
+            }
+        }
+        return(pr);
+    }
+}
