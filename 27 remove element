@@ -1,0 +1,32 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int end=nums.length-1;
+        int i=0;
+        while(i<end){
+            if(nums[end]==val){
+                end--;
+            }
+            if(nums[i]==val){
+                // swap(nums[i],nums[end])
+                int t=nums[end];
+                nums[end]=nums[i];
+                nums[i]=t;
+                    end--;
+            }
+            else{
+                i++;
+            }
+            
+        }
+        int c=0;
+        for(int i1=0;i1<nums.length;i1++){
+            if(nums[i1]==val){
+                break;
+            }
+            else{
+                c++;
+            }
+        }
+        return c;
+    }
+}
