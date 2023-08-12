@@ -1,0 +1,23 @@
+
+
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+import java.lang.*;
+
+public class Solution {
+    public static int findMaxElement(ArrayList < ArrayList < Integer >> arr, int n, int m) {
+        int arr1[]=new int[n];
+        int maxel=0;
+        for(int i=0;i<m;i++){
+            int left=arr.get(i).get(0)-1;
+            int right=arr.get(i).get(1)-1;
+            for(int i1=left;i1<=right;i1++){
+                arr1[i1]=arr1[i1]+1;
+
+                maxel=Math.max(arr1[i1],maxel);
+            }
+        }
+        return maxel;
+    }
+}
