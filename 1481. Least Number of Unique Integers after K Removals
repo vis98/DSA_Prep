@@ -1,0 +1,6 @@
+1481. Least Number of Unique Integers after K Removals
+
+//approach
+intialize hashmap and store count of elements
+sort in increasing frequency of elements
+then for k number decreasing freq of elements in hashMap if freq=0 remove key and atlast return HashMap size
