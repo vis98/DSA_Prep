@@ -1,0 +1,20 @@
+
+//single no II (one number occuring once while others are thrice in array)
+class Solution {
+    public int singleNumber(int[] nums) {
+        HashSet<Integer> hs=new HashSet<>();
+        long unique=0,sum=0;
+        for(int i=0;i<nums.length;i++){
+            if(!hs.contains(nums[i])){
+                hs.add(nums[i]);
+                unique=unique+nums[i];
+            }
+            sum=sum+nums[i];
+        }
+        System.out.println("hs"+hs);
+                System.out.println("sum"+sum);
+        System.out.println("unique"+unique);
+
+        return (int) ((3 * unique - sum) / 2);
+    }
+}
