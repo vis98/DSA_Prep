@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+    public int splitNum(int num) {
+        List<Integer> li=new ArrayList<>();
+        int num1=0;
+        int num2=0;
+        while(num>0){
+            li.add(num%10);
+            num=num/10;
+        }
+           Collections.sort(li);
+        int i=0;
+        while(i < li.size()){
+            num1 = num1*10 + li.get(i);
+            i +=2;
+        } 
+        i=1;
+        while(i < li.size()){
+            num2 = num2*10 + li.get(i);
+            i += 2;
+        }
+        return num1+num2;
+        
+    }
+}
