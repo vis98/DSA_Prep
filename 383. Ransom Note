@@ -1,0 +1,20 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int lett[]=new int[150];
+        
+        for(int i=0;i<magazine.length();i++){
+            lett[magazine.charAt(i)] = lett[magazine.charAt(i)]+1;
+        }
+        
+        for(int i=0;i<ransomNote.length();i++){
+            lett[ransomNote.charAt(i)] = lett[ransomNote.charAt(i)]-1;
+        }
+        
+        for(int i=0;i<lett.length;i++){
+            if(lett[i]<0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
