@@ -1,0 +1,13 @@
+class Solution {
+    public int trailingZeroes(int n) {
+          int i=1;
+        int re=0;
+   
+        while((int)Math.pow(5,i)<=n){
+            int t=n/(int)(Math.pow(5,i));
+            re=re+(t);
+            i++;
+        }
+        return re;
+    }
+}
