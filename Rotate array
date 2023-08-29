@@ -1,0 +1,37 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n=nums.length;
+        k=k%n;
+        if(k<0){
+            k=k+n;
+        }
+        int left=0;
+        int right=nums.length-1;
+        while(left<right){
+            int temp=nums[left];
+            nums[left]=nums[right];
+            nums[right]=temp;
+            left++;
+            right--;
+        }
+        int start=0;
+        int end=k-1;
+        while(start<end && end<=nums.length-1){
+            int t=nums[start];
+            nums[start]=nums[end];
+            nums[end]=t;
+            start++;
+            end--;
+        }
+        int st1=k;
+        int ed=nums.length-1;
+            while(st1<ed){
+            int t=nums[st1];
+            nums[st1]=nums[ed];
+            nums[ed]=t;
+            st1++;
+            ed--;
+        }
+        
+    }
+}
