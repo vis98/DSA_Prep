@@ -5,20 +5,20 @@ class Solution {
        }
        int le=0;
         int ri=nums.length-1;
-        int mid;
-        while(le<ri)
+        int mid=-1;
+        while(le<=ri)
         {
-            mid=(ri+le)/2;
-            if((mid==0 || nums[mid]>nums[mid-1])&& (mid==nums.length-1 || nums[mid]>nums[mid+1])){
-                return mid;
+            mid=le+(ri-le)/2;
+            if((mid<nums.length-1 &&  nums[mid]<nums[mid+1])){
+                le=mid+1;
             }
-            if(nums[mid]>nums[mid+1]){
-               ri=mid;
+            else if((mid>0 && nums[mid]<nums[mid-1])){
+                ri=mid;
             }
             else{
-               le=mid+1; 
+                return mid;
             }
-        }
-        return le;
+    }
+        return mid;
     }
 }
