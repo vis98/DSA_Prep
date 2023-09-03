@@ -1,0 +1,36 @@
+class Solution {
+    // Define TreeMap<Integer(col), List<int[row, val]>>
+    // Cannot use TreeMap<Integer, TreeMap<Integer, Integer>> here since same col and row will have different val
+    private Map<Integer, List<int[]>> map = new TreeMap<>();
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(root, 0, 0);
+        for (int colKey : map.keySet()) {
+            List<Integer> list = new ArrayList<>();
+            List<int[]> colValues = map.get(colKey);
+            // Sort row and val within each col
+            if(colKey==0){
+             for (int j1=0;j1<colValues.size();j1++) {
+                System.out.println("colValues"+colValues.get(j1)[1]);
+            }   
+            }
+            Collections.sort(colValues, (a, b) -> (a[0]==b[0]) ? a[1]-b[1] : a[0]-b[0]);
+            for (int[] colValue : colValues) {
+                list.add(colValue[1]);
+            }
+            ans.add(list);
+        }
+        return ans;
+    }
+    private void traversal(TreeNode root, int col, int row) {
+        if (root == null) {
+            return;
+        }
+        if (!map.containsKey(col)) {
+            map.put(col, new ArrayList<>());
+        }
+        map.get(col).add(new int[]{row, root.val});
+        traversal(root.left, col-1, row+1);
+        traversal(root.right, col+1, row+1);
+    }
+}
