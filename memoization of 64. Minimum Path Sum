@@ -1,0 +1,34 @@
+class Solution {
+    public int minPathSum(int[][] grid) {
+      int ro = grid.length;
+        int co = grid[0].length;
+        int[][] memo = new int[ro][co]; // Memoization array
+
+        return utility(grid, 0, 0, ro, co, memo);
+    }
+    public int utility(int[][] grid, int r, int c, int ro, int co, int[][] memo) {
+        // Check if we've already computed the result for this cell
+        if (memo[r][c] != 0) {
+            return memo[r][c];
+        }
+
+        // Calculate the minimum path sum starting from cell (r, c)
+        int sum = grid[r][c];
+
+        if (r == ro - 1 && c == co - 1) {
+            // Base case: We've reached the destination cell
+            memo[r][c] = sum;
+        } else {
+            // Move right
+            int rightSum = (c < co - 1) ? utility(grid, r, c + 1, ro, co, memo) : Integer.MAX_VALUE;
+            
+            // Move down
+            int downSum = (r < ro - 1) ? utility(grid, r + 1, c, ro, co, memo) : Integer.MAX_VALUE;
+
+            // Calculate the minimum path sum
+            memo[r][c] = sum + Math.min(rightSum, downSum);
+        }
+
+        return memo[r][c];
+    }
+}
