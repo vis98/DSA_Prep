@@ -1,0 +1,68 @@
+class Solution {
+    
+    static class qentry{
+        int v;
+        int dist;
+    }
+    
+    public int snakesAndLadders(int[][] board) {
+        int rowLen=board.length;
+        int colLen=board[0].length;
+        int size=(rowLen*colLen)+1;
+          int[] brd = new int[size];
+        int brdIdx = 1;
+        for (int row = rowLen - 1; row >= 0; row--) {
+            for (int col = 0; col < colLen; col++)  brd[brdIdx++] = board[row][col];
+            if (--row < 0)  break;
+            for (int col = rowLen - 1; col >= 0; col--)  brd[brdIdx++] =board[row][col];
+        }
+        Queue<qentry> q=new  LinkedList<>();
+        
+        int visited[]=new int[size];
+        
+        visited[1]=1;
+        
+        
+          qentry qe = new qentry();
+      qe.v = 1;
+        qe.dist = 0;
+ 
+        visited[0] = 1;
+        q.add(qe);
+        
+        while (!q.isEmpty()) {
+            qe = q.remove();
+            int v = qe.v;
+ 
+            
+            if (v == (size-1))
+            {
+                return qe.dist;
+            }
+ 
+            // Otherwise dequeue the front vertex and
+            // enqueue its adjacent vertices (or cell
+            // numbers reachable through a dice throw)
+            for (int j = v + 1; j <= (v + 6) && j < size;
+                 ++j) {
+             
+                if (visited[j] == 0) {
+                
+                    qentry a = new qentry();
+                    a.dist = (qe.dist + 1);
+                    visited[j] = 1;
+ 
+                   
+                    if (brd[j] != -1)
+                        a.v = brd[j];
+                    else
+                        a.v = j;
+System.out.println("qe.v"+qe.v+"A.v"+a.v+" "+a.dist)     ;               q.add(a);
+                }
+            }
+        }
+        
+        return -1;
+        
+    }
+}
