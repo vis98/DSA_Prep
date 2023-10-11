@@ -1,0 +1,46 @@
+class TransitiveClosure {
+    public static void main(String[] args) {
+        int graph[][] = {
+            {1, 1, 0, 0},
+            {0, 1, 1, 0},
+            {0, 0, 1, 1},
+            {0, 0, 0, 1}
+        };
+
+        TransitiveClosure tc = new TransitiveClosure();
+        int[][] transitiveClosure = tc.calculateTransitiveClosure(graph);
+        tc.printTransitiveClosure(transitiveClosure);
+    }
+
+    int[][] calculateTransitiveClosure(int graph[][]) {
+        int V = graph.length;
+        int[][] reach = new int[V][V];
+
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                reach[i][j] = graph[i][j];
+            }
+        }
+
+        for (int k = 0; k < V; k++) {
+            for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                    reach[i][j] = (reach[i][j] != 0) || (reach[i][k] != 0 && reach[k][j] != 0) ? 1 : 0;
+                }
+            }
+        }
+
+        return reach;
+    }
+
+    void printTransitiveClosure(int reach[][]) {
+        int V = reach.length;
+        System.out.println("Transitive Closure of the Given Graph:");
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                System.out.print(reach[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
