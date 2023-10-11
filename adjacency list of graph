@@ -1,0 +1,27 @@
+import java.util.LinkedList;
+
+public class GraphRepresentation {
+    public static void main(String[] args) {
+        int edges[][] = { { 0, 1 }, { 1, 2 }, { 2, 0 } };
+        int V = 3; // Number of vertices
+
+        LinkedList<Integer>[] adj = new LinkedList[V];
+
+        for (int i = 0; i < V; i++) {
+            adj[i] = new LinkedList<>();
+        }
+
+        for (int[] edge : edges) {
+            adj[edge[0]].add(edge[1]);
+            adj[edge[1]].add(edge[0]); // For an undirected graph, add the reverse edge as well
+        }
+
+        for (int i = 0; i < V; i++) {
+            System.out.print("Vertex " + i + " is connected to: ");
+            for (Integer neighbor : adj[i]) {
+                System.out.print(neighbor + " ");
+            }
+            System.out.println();
+        }
+    }
+}
