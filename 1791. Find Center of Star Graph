@@ -1,0 +1,19 @@
+class Solution {
+    public int findCenter(int[][] edges) {
+        int p[]=new int[edges.length+2];
+    for(int i=0;i<edges.length;i++){
+        System.out.println("edges 0 &1 "+edges[i][0]+" "+edges[i][1]);
+                p[edges[i][1]]= p[edges[i][1]]+1;
+                p[edges[i][0]]=p[edges[i][0]]+1;
+
+                  if(p[edges[i][0]]>1){
+                      return edges[i][0];
+                  }
+         if(p[edges[i][1]]>1){
+                      return edges[i][1];
+                  }
+                  
+            }
+        return -1;
+    }
+}
