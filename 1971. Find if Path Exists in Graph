@@ -1,0 +1,44 @@
+class Solution {
+    int[] rank, parent;
+
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        parent = new int[n];
+        rank = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            parent[i] = i; // Initially, all elements are in their own set.
+            rank[i] = 0;   // Initially, the rank of each element is 0.
+        }
+
+        for (int[] edge : edges) {
+            union(edge[0], edge[1]);
+        }
+
+        return find(source) == find(destination);
+    }
+
+    public int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression
+        }
+        return parent[x];
+    }
+
+    public void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+
+        // Attach the smaller rank tree to the higher rank tree
+        if (rootX != rootY) {
+            if (rank[rootX] < rank[rootY]) {
+                parent[rootX] = rootY;
+            } else if (rank[rootX] > rank[rootY]) {
+                parent[rootY] = rootX;
+            } else {
+                // If ranks are the same, attach one tree to the other and increment the rank
+                parent[rootY] = rootX;
+                rank[rootX]++;
+            }
+        }
+    }
+}
