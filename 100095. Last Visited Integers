@@ -1,0 +1,53 @@
+class Solution {
+    public List<Integer> lastVisitedIntegers(List<String> words) {
+        int wordsLen=words.size();
+      int longest[]=new int[wordsLen];
+                List<Integer> re=new ArrayList<>();
+             if(words.size()==0){
+                 return re;
+             }
+       
+        List<Integer> intTrack=new ArrayList<Integer>();
+        if(words.get(0).equals("prev")){
+            longest[0]=1;
+
+        }
+        for(int i=1;i<wordsLen;i++){
+
+            if(words.get(i).equals("prev") && words.get(i).equals(words.get(i-1))){
+
+                longest[i]=longest[i-1]+1;
+            }
+            else if(words.get(i).equals("prev")){
+
+                                longest[i]=1;
+
+            }
+        }
+                 List<Integer>  reversedList = new ArrayList<>();
+
+        for(int i=0;i<wordsLen;i++){
+            if(!words.get(i).equals("prev")){
+                intTrack.add(Integer.parseInt(words.get(i)));
+            }
+            else{
+                reversedList.clear();
+                 for (int i1 = intTrack.size() - 1; i1 >= 0; i1--) {
+                reversedList.add(intTrack.get(i1));
+                 }
+                int k=longest[i];
+                if((k-1)>=reversedList.size()){
+                   System.out.println("adding -1");
+
+                   re.add(-1); 
+                }
+                else{
+                System.out.println("i"+i+"reversedList"+" "+reversedList.size()+" "+"k"+k);
+
+                    re.add(reversedList.get(k-1));
+                }
+            }
+        }
+        return re;
+    }
+}
