@@ -1,0 +1,22 @@
+class Solution {
+    List<List<Integer>> li ;
+    public List<List<Integer>> combine(int n, int k) {
+        li = new ArrayList<>();
+
+    ArrayList<Integer> currentList=new ArrayList<>();
+        utility(li,currentList,1,n,k);
+        return li;
+    }
+    private void utility(List<List<Integer>> li,ArrayList<Integer> current,int currentIndex,int n, int k){
+        System.out.println("current size"+current.size());
+        if(current.size()==k){
+            li.add(new ArrayList<>(current));
+            return;
+        }
+        for(int i=currentIndex;i<=n;i++){
+            current.add(i);
+            utility(li,current,i+1,n,k);
+            current.remove(current.size()-1);
+        }
+    }
+}
