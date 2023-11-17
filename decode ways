@@ -1,0 +1,40 @@
+class Solution {
+    public int numDecodings(String s) {
+      if (s == null || s.length() == 0 || s.startsWith("0")) {
+            return 0;
+        }
+        
+          Map<Integer, Integer> memo = new HashMap<>();
+        return countDecodings(s, 0, memo);
+    }
+
+    private int countDecodings(String s, int index, Map<Integer, Integer> memo) {
+        if (index == s.length()) {
+            return 1;
+        }
+
+        if (memo.containsKey(index)) {
+            return memo.get(index);
+        }
+
+        int count = 0;
+
+        // Single-digit decoding
+        if (s.charAt(index) != '0') {
+            count += countDecodings(s, index + 1, memo);
+        }
+
+        // Two-digit decoding
+        if (index < s.length() - 1 && isValidTwoDigit(s, index)) {
+            count += countDecodings(s, index + 2, memo);
+        }
+
+        memo.put(index, count);
+        return count;
+    }
+
+    private boolean isValidTwoDigit(String s, int index) {
+        int num = (s.charAt(index) - '0') * 10 + (s.charAt(index + 1) - '0');
+        return num >= 10 && num <= 26;
+    }
+}
