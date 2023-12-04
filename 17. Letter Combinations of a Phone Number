@@ -1,0 +1,38 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+      List<String> result = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return result;
+        }
+
+        // Define the mapping of digits to letters
+        Map<Character, String> digitMap = new HashMap<>();
+        digitMap.put('2', "abc");
+        digitMap.put('3', "def");
+        digitMap.put('4', "ghi");
+        digitMap.put('5', "jkl");
+        digitMap.put('6', "mno");
+        digitMap.put('7', "pqrs");
+        digitMap.put('8', "tuv");
+        digitMap.put('9', "wxyz");
+        backtrack(result, digitMap, digits, 0, new StringBuilder());
+        return result;
+
+    }
+
+     private static void backtrack(List<String> result, Map<Character, String> digitMap, String digits, int index, StringBuilder current) {
+        if (index == digits.length()) {
+            result.add(current.toString());
+            return;
+        }
+
+        char digit = digits.charAt(index);
+        String letters = digitMap.get(digit);
+        for (int i = 0; i < letters.length(); i++) {
+            current.append(letters.charAt(i));
+            backtrack(result, digitMap, digits, index + 1, current);
+            current.deleteCharAt(current.length() - 1);
+        }
+    }
+
+}
