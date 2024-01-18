@@ -1,0 +1,43 @@
+class Solution {
+    public String removeDuplicates(String s) {
+        // Check if the input string is empty
+        if (s.length() == 0) {
+            return s;
+        }
+
+        // Create a StringBuffer to store the result
+        StringBuffer sb = new StringBuffer();
+
+        // Create a stack to track unique characters
+        Stack<Character> st = new Stack<Character>();
+        
+        // Push the first character onto the stack
+        st.push(s.charAt(0));
+
+        // Iterate through the characters in the input string
+        for (int i = 1; i < s.length(); i++) {
+            // While the stack is not empty and the current character is equal to the top of the stack
+            while (i<s.length() && !st.isEmpty() && st.peek() == s.charAt(i)) {
+                // Pop the top of the stack and move to the next character in the input string
+                st.pop();
+                i=i+1;
+            }
+            
+            // If there are more characters in the input string, push the current character onto the stack
+            if (i < s.length()) {
+                st.push(s.charAt(i));
+            }
+        }
+
+        // Pop the remaining characters from the stack and append them to the result
+        while (!st.isEmpty()) {
+            sb.append(st.pop());
+        }
+
+        // Reverse the StringBuffer to get the final result
+        sb.reverse();
+
+        // Convert the StringBuffer to a string and return it
+        return sb.toString();
+    }
+}
