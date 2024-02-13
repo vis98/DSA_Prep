@@ -1,0 +1,62 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] arr, int K) {
+        int N=arr.length;
+         Deque<Integer> Qi = new LinkedList<Integer>();
+ 
+        /* Process first k (or first window)
+        elements of array */
+        int i;
+        int l=0;
+       ArrayList<Integer> res=new ArrayList<Integer>();
+        for (i = 0; i < K; ++i) {
+ 
+            // For every element, the previous
+            // smaller elements are useless so
+            // remove them from Qi
+            while (!Qi.isEmpty()
+                   && arr[i] >= arr[Qi.peekLast()])
+ 
+                // Remove from rear
+                Qi.removeLast();
+ 
+            // Add new element at rear of queue
+            Qi.addLast(i);
+        }
+ 
+        // Process rest of the elements,
+        // i.e., from arr[k] to arr[n-1]
+        for (; i < N; ++i) {
+ 
+            // The element at the front of the
+            // queue is the largest element of
+            // previous window, so print it
+            res.add(arr[Qi.peek()]);
+
+            // Remove the elements which
+            // are out of this window
+            while ((!Qi.isEmpty()) && Qi.peek() <= i - K)
+                Qi.removeFirst();
+ 
+            // Remove all elements smaller
+            // than the currently
+            // being added element (remove
+            // useless elements)
+            while ((!Qi.isEmpty())
+                   && arr[i] >= arr[Qi.peekLast()])
+                Qi.removeLast();
+ 
+            // Add current element at the rear of Qi
+            Qi.addLast(i);
+        }
+ 
+        // Print the maximum element of last window
+        res.add(arr[Qi.peek()]);
+        int res1[]=new int[res.size()];
+        for(int i1=0;i1<res.size();i1++){
+            res1[l++]=res.get(i1);
+        }
+        return res1;
+
+
+    }
+}
