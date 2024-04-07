@@ -1,0 +1,36 @@
+import java.util.Arrays;
+
+class Solution {
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int sum = 0;
+        for (int num : nums)
+            sum += num;
+
+        if (sum % k != 0)
+            return false;
+
+        int targetSum = sum / k;
+        Arrays.sort(nums);
+        boolean[] used = new boolean[nums.length];
+        return canPartition(nums, 0, targetSum, k, 0, used);
+    }
+
+    private boolean canPartition(int[] nums, int startIndex, int targetSum, int k, int currentSum, boolean[] used) {
+        if (k == 0)
+            return true;
+
+        if (currentSum == targetSum)
+            return canPartition(nums, 0, targetSum, k - 1, 0, used);
+
+        for (int i = startIndex; i < nums.length; i++) {
+            if (!used[i] && currentSum + nums[i] <= targetSum) {
+                used[i] = true;
+                if (canPartition(nums, i + 1, targetSum, k, currentSum + nums[i], used))
+                    return true;
+                used[i] = false; // backtrack
+            }
+        }
+
+        return false;
+    }
+}
