@@ -1,0 +1,39 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+        quickSort(nums,0,nums.length-1);
+        return nums;
+    }
+
+    static void quickSort(int[] arr, int low, int high)
+    {
+        if (low < high) {
+
+            // pi is partitioning index, arr[p]
+            // is now at right place
+            int pi = partition(arr, low, high);
+
+            // Separately sort elements before
+            // partition and after partition
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+    static int partition(int arr[],int low,int high){
+
+        int i=(low-1);
+        int pivot=arr[high];
+        for(int j=low;j<high;j++){
+            if(arr[j]<pivot){
+                i++;
+                swap(i,j,arr);
+            }
+        }
+        swap(i+1,high,arr);
+        return i+1;
+    }
+   static void swap(int i,int j,int nums[]){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+}
