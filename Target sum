@@ -1,0 +1,12 @@
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+       return findTarget(nums,target,0,0);
+    }
+     int findTarget(int nums[],int target,int index,int currenttarget){
+        if(index==nums.length){
+            return currenttarget==target? 1 :0;
+        }
+        return  findTarget(nums,target,index+1,currenttarget+nums[index])+
+        findTarget(nums,target,index+1,currenttarget-nums[index]);
+     }
+}
