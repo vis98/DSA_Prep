@@ -1,0 +1,27 @@
+import java.util.*;
+import java.lang.Integer;
+class Solution {
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        Arrays.sort(arr);
+        List<List<Integer>> res=new ArrayList<>();
+        int minres=Integer.MAX_VALUE;
+        for(int i=1;i<arr.length;i++){
+            int temp=arr[i]-arr[i-1];
+            if(temp<minres){
+                res.clear();
+                minres=temp;
+                List<Integer> temparrlist=new ArrayList<>();
+                temparrlist.add(arr[i-1]);temparrlist.add(arr[i]);
+                res.add(temparrlist);
+            }
+            else if(temp==minres){
+                 List<Integer> temparrlist=new ArrayList<>();
+                temparrlist.add(arr[i-1]);temparrlist.add(arr[i]);
+                res.add(temparrlist);
+            }
+         
+            
+        }
+        return res;
+    }
+}
