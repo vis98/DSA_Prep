@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class StickLengthFrequency {
+
+    public static void main(String[] args) {
+        int[] sideLengths = {2, 3, 3, 4, 6, 8, 8, 6};
+
+        // Step 1: Frequency Count
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int length : sideLengths) {
+            freq.put(length, freq.getOrDefault(length, 0) + 1);
+        }
+
+        // Step 2: Sort HashMap by keys in descending order
+        List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(freq.entrySet());
+        Collections.sort(entries, new Comparator<Map.Entry<Integer, Integer>>() {
+            public int compare(Map.Entry<Integer, Integer> a, Map.Entry<Integer, Integer> b) {
+                return b.getKey().compareTo(a.getKey()); // Compare keys in reverse order
+            }
+        });
+        ArrayList<Integer> keyarr=new ArrayList<>();
+        freq.clear();
+        // Printing the sorted hashmap
+        for (Map.Entry<Integer, Integer> entry : entries) {
+            freq.put(entry.getKey(),entry.getValue());
+           keyarr.add(entry.getKey());
+        }
+        System.out.println(freq.toString());
+        long area=0;
+        for(int i=0;i<=keyarr.size()-2;i=i+1){
+                    System.out.println("i"+i);
+
+            int c1=freq.get(keyarr.get(i));
+            int c2=freq.get(keyarr.get(i+1));
+            if(c1>0 && c2>0 && c1%2==0 && c2%2==0){
+                area=area+(keyarr.get(i)*keyarr.get(i+1));
+                c1=c1-2;
+                c2=c2-2;
+                freq.put(keyarr.get(i),c1);
+                freq.put(keyarr.get(i+1),c2);
+            }
+            else{
+                int key1=keyarr.get(i);
+                int key2=keyarr.get(i+1);
+                if(freq.get(key1-1)!=null && (freq.get(key1-1)+1) %2==0){
+                    freq.put(key1-1,freq.get(key1-1)+1);
+                }
+                if(freq.get(key2-1)!=null && (freq.get(key2-1)+1) %2==0){
+                    freq.put(key2-1,freq.get(key2-1)+1);
+                }
+                
+            }
+        }
+                System.out.println(freq.toString());
+
+        System.out.println(area);
+    }
+}
