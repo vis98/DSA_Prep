@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<String> validStrings(int n) {
+        List<String> res = new ArrayList<>();
+        int totalNumbers = (int) Math.pow(2, n);
+        
+        for (int i = 0; i < totalNumbers; i++) {
+            String binaryString = toBinaryString(i, n);
+            
+            // Add the string only if it contains '1' and is of length 'n'
+            if (validate(binaryString)==true) {
+                res.add(binaryString);
+            }
+        }
+        
+        return res;
+    }
+    
+    // Helper method to convert an integer to a binary string of length 'n'
+    private String toBinaryString(int number, int length) {
+        StringBuilder binary = new StringBuilder();
+        
+        while (number > 0) {
+            binary.append(number % 2);
+            number /= 2;
+        }
+        
+        while (binary.length() < length) {
+            binary.append('0');
+        }
+        
+        return binary.reverse().toString();
+    }
+    
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        List<String> result = solution.validStrings(3);
+        for (String binaryString : result) {
+            System.out.println(binaryString);
+        }
+    }
+     public boolean  validate(String inp) {
+        int curr=-1;
+       for(int i=0;i<inp.length();i++){
+           if(inp.charAt(i)=='0' && i==0){
+               curr=i;
+           }
+           else if(inp.charAt(i)=='0' && i-curr<2){
+               return false;
+           }
+           else if(inp.charAt(i)=='0'){
+               curr=i;
+           }
+       
+       }
+             return true;
+    }
+}
