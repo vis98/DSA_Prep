@@ -1,0 +1,94 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    String s1="";
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        TreeNode lcanode=LCA(root,startValue,destValue);
+        StringBuffer sb=new StringBuffer();
+        StringBuffer sb1=new StringBuffer();
+        lcatostart(lcanode,startValue,sb,0);
+         lcatodest(lcanode,destValue,sb1); 
+        return sb.toString()+s1;
+    }
+    
+    public TreeNode LCA(TreeNode root,int n1,int n2){
+        if (root == null)
+            return root;
+        if (root.val == n1 || root.val == n2)
+            return root;
+ 
+        TreeNode left = LCA(root.left, n1, n2);
+        TreeNode right = LCA(root.right, n1, n2);
+ 
+        if (left != null && right != null)
+            return root;
+        if (left == null && right == null)
+            return null;
+        if (left != null)
+            return left;
+        else
+            return right;
+    }
+    
+    void lcatostart(TreeNode root,int startValue,StringBuffer sb,int level){
+if (root == null) {
+        return;
+    }
+
+    if (root.val == startValue) {
+        for(int i=0;i<level;i++){
+            sb.append("U");
+        }
+        return;
+    }
+
+    if (root.left == null && root.right == null) {
+       // sb.append("U");
+        return;
+    }
+        
+        lcatostart(root.left,startValue,sb,level+1);
+        lcatostart(root.right,startValue,sb,level+1);
+       // sb.append("U");
+        
+    }
+    
+    void lcatodest(TreeNode root, int destValue, StringBuffer sb1) {
+    if (root == null) {
+        return;
+    }
+
+    if (root.val == destValue) {
+        //sb1.append("U");
+        s1=sb1.toString();
+        System.out.println("At 77"+s1);
+        return;
+    }
+
+    if (root.left == null && root.right == null) {
+    
+        return;
+    }
+sb1.append("L");
+    lcatodest(root.left, destValue, sb1);   // Traverse left subtree
+        sb1.setLength(sb1.length() - 1);
+        sb1.append("R");
+    lcatodest(root.right, destValue, sb1);  // Traverse right subtree
+      sb1.setLength(sb1.length() - 1);
+     // Append "D" after traversing both subtrees
+}
+
+}
