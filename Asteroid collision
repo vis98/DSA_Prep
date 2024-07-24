@@ -1,0 +1,56 @@
+
+import java.util.*;
+import java.lang.*;
+class Solution {
+    public int[] asteroidCollision(int[] a) {
+       Stack<Integer> st=new Stack<Integer>();
+        boolean flag=true;
+        for(int i=0;i<a.length;i++){
+            flag=true;
+            while(!st.isEmpty()){
+                
+                if(st.peek()==a[i]*-1 && a[i]<0){
+                    st.pop();
+                    flag=false;
+                    break;
+                }
+                else if((st.peek()<0 && a[i]<0) || (st.peek()>0 && a[i]>0) || (st.peek()<0 && a[i]>0)){
+                    break;
+                }
+                else{
+                    
+                  if(Math.abs(st.peek())>Math.abs(a[i])){
+                        flag=false;
+                      break;
+                  }
+                  else{
+                      st.pop();
+                        flag=true;
+                  }
+                    
+                }
+                
+              
+            }
+              if(flag){
+                    System.out.print("at 34");
+                    st.push(a[i]);
+                }
+        }
+                     
+                     int res[]=new int[st.size()];
+                     int k=0;
+                     for(int no:st){
+                         res[k++]=no;
+                     }
+                     
+                     return res;
+                     
+        
+    }
+}
+
+/*
+
+
+*/
