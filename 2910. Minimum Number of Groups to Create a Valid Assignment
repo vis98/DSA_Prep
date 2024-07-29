@@ -1,0 +1,49 @@
+import java.lang.*;
+import java.util.*;
+class Solution {
+    public int minGroupsForValidAssignment(int[] balls) {
+        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
+
+        // Count the frequency of each element
+        for (int number : balls) {
+            // If the number is already in the map, increment its count
+            frequencyMap.put(number, frequencyMap.getOrDefault(number, 0) + 1);
+        }
+         int arr[]=new int [frequencyMap.size()];
+        int k=0;
+        int min=Integer.MAX_VALUE;
+        for(int key:frequencyMap.keySet()){
+            arr[k]=frequencyMap.get(key);
+            if(arr[k]<min){
+                min=arr[k];
+            }
+            k++;
+        }
+        System.out.println("at 21 "+min);
+        //return 1;
+         int res=0;
+        int resboxes=Integer.MAX_VALUE;
+        for(int x=1;x<=min;x++){
+            res=0;
+            boolean valid = true;
+            for(int i=0;i<arr.length;i++){
+                int a=arr[i]/(x+1);
+                int b=arr[i]%(x+1);
+                if(b==0){
+                  res=res+(arr[i]/(x+1));  
+                }
+                else if (x - b <= a) {
+                    res += (a + 1);
+                } else {
+                    valid = false;
+                    break;
+                }
+            }
+            System.out.println("at 41"+res);
+            if(valid && res<resboxes){
+                resboxes=res;
+            }
+        }
+        return resboxes;
+    }
+}
