@@ -1,0 +1,34 @@
+import java.util.*;
+import java.lang.*;
+class Solution {
+    public int minSwaps(int[] nums) {
+       int total=0;
+        for(int no:nums){
+            if(no==1){
+                total++;
+            }
+        }
+        int currentones=0;
+        for(int i=0;i<total;i++){
+            if(nums[i]==1){
+                currentones++;
+            }
+        }
+        int maxones=currentones;
+        int extended[]=new int[nums.length*2];
+        System.arraycopy(nums,0,extended,0,nums.length);
+        System.arraycopy(nums,0,extended,nums.length,nums.length);
+
+        for(int i=1;i<nums.length;i++){
+            
+            if(extended[i-1]==1){
+                currentones--;
+            }
+            if(extended[i+total-1]==1){
+                currentones++;
+            }
+            maxones=Math.max(maxones,currentones);
+        }
+        return total-maxones;
+    }
+}
