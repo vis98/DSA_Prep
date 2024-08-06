@@ -1,0 +1,3 @@
+create degree for each element and made 2d array to store direction like whetthere there is a path 0-1 to 1-0 and if there is path then 
+add degree of 0 + degree 1 - 1(subtracting 1 to remove duplicate count while storing degree for both indicies) 
+once added compare it with max and update accordingly
