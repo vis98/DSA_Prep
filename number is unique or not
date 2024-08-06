@@ -1,0 +1,12 @@
+ public static boolean isUniqueNumber(int n) {
+        int mask = 0;
+        while (n > 0) {
+            int digit = n % 10;
+            if ((mask & (1 << digit)) != 0) {
+                return false;
+            }
+            mask |= (1 << digit);
+            n /= 10;
+        }
+        return true;
+    }
