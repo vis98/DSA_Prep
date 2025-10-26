@@ -1,0 +1,52 @@
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        int parent[]=new int[graph.length];
+                int rank[]=new int[graph.length];
+
+        for(int i=0;i<parent.length;i++){
+            parent[i]=i;
+        }
+
+
+        for (int u = 0; u < graph.length; u++) {
+            int[] neighbors = graph[u];
+            for (int v : neighbors) {
+                if (find(parent,u) == find(parent,v)) {
+                    return false;
+                }
+                unionIt(parent,neighbors[0],v,rank);
+            }
+        }
+        return true;
+
+
+
+    }
+
+    int find(int []parent,int x){
+
+        if (parent[x] != x) {
+                parent[x] = find(parent,parent[x]); // path compression
+            }
+            return parent[x];
+    }
+
+    void unionIt(int parent[],int x,int y,int rank[]){
+        int px=find(parent,x);
+        int py=find(parent,y);
+
+        if(px!=py){
+            if (rank[px] < rank[py]) {
+                parent[px] = py;
+            } else if (rank[px] > rank[py]) {
+                parent[py] = px;
+            } else {
+                parent[py] = px;
+                rank[px]++;
+            }
+        }
+    }
+
+    
+
+}
