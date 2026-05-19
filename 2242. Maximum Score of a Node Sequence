@@ -1,0 +1,57 @@
+import java.util.*;
+import java.lang.*;
+
+class Solution {
+    public int maximumScore(int[] scores, int[][] edges) {
+        int ans=-1;
+        int n=scores.length;
+       List<Integer> top[]=new ArrayList[n];
+
+       for(int i=0;i<n;i++){
+        top[i]=new ArrayList<>();
+       }
+
+       for(int []edge:edges){
+
+            int u=edge[0];
+            int v=edge[1];
+
+            add(top[u],v,scores);
+            add(top[v],u,scores);
+       }
+
+       for(int e[]:edges){
+            
+            int b = e[0];
+            int c = e[1];
+
+            for(int a:top[b]){
+                for(int d:top[c]){
+                    // System.out.println("at 31"+ans);
+                    if(a==c || b==d || a==d){
+                        continue;
+                    }
+                    // System.out.println("at 34"+ans);
+                    ans = Math.max(
+                        ans,
+                        scores[a] + scores[b] + scores[c] + scores[d]
+                    );
+                    // System.out.println("at 39"+ans);
+
+                }
+            }
+       }
+       return ans;
+
+    }
+    public void add(List<Integer> li,int node,int[] scores){
+        li.add(node);
+
+        li.sort((a,b)->{
+            return scores[b]-scores[a];
+        });
+        if (li.size() > 3) {
+            li.remove(li.size() - 1);
+        }
+    }
+}
